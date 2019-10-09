@@ -1,20 +1,22 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer');
 
-const targetUrl = "https://tabbied.com/symmetry";
+const targetUrl = 'symmetry_copy.html';
 
 (async () => {
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
-  console.log("created a new page");
-  console.log(`navigating to ${targetUrl} now`);
   await page.goto(targetUrl);
-  console.log("waiting for navigation to finish");
-  await page.waitForNavigation();
-  console.log(`navigated to ${targetUrl}`);
-  page.setViewport({ width: 1000, height: 600, deviceScaleFactor: 1 });
-  console.log("Taking a screenshot");
-  await page.screenshot({ path: "screenshots/symmetry.png" });
+
+  page.setViewport({
+    width: 320,
+    height: 480,
+    deviceScaleFactor: 10,
+  });
+
+  await page.screenshot({
+    path: 'screenshots/symmetry.png',
+  });
 
   await browser.close();
 })();
