@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
-const targetUrl = 'symmetry_copy.html';
+const targetUrl = 'YOUR_URL_HERE';
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -13,6 +14,10 @@ const targetUrl = 'symmetry_copy.html';
     height: 480,
     deviceScaleFactor: 10,
   });
+
+  if (!fs.existsSync('screenshots')) {
+    fs.mkdirSync('screenshots');
+  }
 
   await page.screenshot({
     path: 'screenshots/symmetry.png',

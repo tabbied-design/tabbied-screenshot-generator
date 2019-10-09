@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- META
+	__________________________________________________________________________________ -->
+	<meta charset="utf-8" />
+	<title>Tabbied "Symmetry"</title>
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+	<!-- Custom Style -->
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+	<style>
+		css-doodle {
+			--color0: #FFFFFF;
+			--color1: #00FFF3;
+			--color2: #00FFF3;
+			--color3: #00A1FF;
+			--color4: #FF8DFF;
+			--color5: #FF007E;
+
+			--rule: (@nth(1, 2, 3, 4, 5, 6) {
+					width: @calc(70 - @i() * 10)%;
+					height:@calc(23.33 - @i() * 3.33)%;
+					position:absolute;
+					top: @calc(26.66 + @i() * 3.33)%;
+					left:20%;
+					border-top-left-radius: 320px;
+					border-top-right-radius: 320px;
+					background-image: linear-gradient(45deg, var(--color2), var(--color3));
+					overflow:hidden;
+					z-index: @i();
+				}
+
+				@nth(7, 8, 9, 10, 11, 12) {
+					width: @calc(70 - (@i() - 6) * 10)%;
+					height:@calc(23.33 - (@i() - 6) * 3.33)%;
+					position:absolute;
+					top: 50%;
+					left: @calc(10 + (@i() - 6) * 10)%;
+					border-bottom-left-radius: 320px;
+					border-bottom-right-radius: 320px;
+					background-image: linear-gradient(45deg, var(--color4), var(--color5));
+					overflow:hidden;
+					z-index: @i();
+				}
+
+			);
+		}
+	</style>
+
+	<!-- Favicons
+	__________________________________________________________________________________ -->
+	<link href="img/favicon.ico" rel="shortcut icon" />
+	<link href="img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+</head>
+
+<body>
+	<css-doodle use="var(--rule)">
+		:doodle {
+		@grid: 12x1/ 100%;
+		width:320px;
+		height:480px;
+		overflow:hidden;
+		text-align:center;
+		box-sizing:border-box;
+
+		background: radial-gradient(circle, var(--color0), var(--color1));
+		}
+		:container {
+		overflow:hidden;
+		transform: rotate(@p(0deg, -0deg, -45deg, 45deg, 90deg, -90deg, -180deg, 180deg, -270deg,
+		270deg, -360deg, 360deg));
+		transition: 1s ease;
+		}
+	</css-doodle>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.5.1/css-doodle.min.js"></script>
+</body>
+
+</html>
