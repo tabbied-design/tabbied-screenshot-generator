@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const targetUrl = 'YOUR_URL_HERE';
+let targetUrl = 'YOUR_URL_HERE';
+targetUrl =    'C:\\Users\\Park\\Downloads\\nodejs-projects\\tabbied-screenshot-generator\\free_sample_symmetry.html';
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -20,7 +21,7 @@ const targetUrl = 'YOUR_URL_HERE';
   }
 
   await page.screenshot({
-    path: 'screenshots/symmetry.png',
+    path: 'screenshots/symmetry2.png',
   });
 
   await browser.close();
