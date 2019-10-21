@@ -1,28 +1,40 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const fsPromises = require('fs').promises;
 
-let targetUrl = 'YOUR_URL_HERE';
-targetUrl =    'C:\\Users\\Park\\Downloads\\nodejs-projects\\tabbied-screenshot-generator\\free_sample_symmetry.html';
+const { generateScreenshot } = require('./helpers/screenshot');
 
-(async () => {
-  const browser = await puppeteer.launch();
+const app = express();
+const port = 3000;
 
-  const page = await browser.newPage();
-  await page.goto(targetUrl);
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded());
 
-  page.setViewport({
-    width: 320,
-    height: 480,
-    deviceScaleFactor: 10,
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.post('/generate', async (req, res) => {
+  console.log('generate screenshot');
+  console.log(req.body);
+
+  const doodleTitle = req.body['doodle-title'];
+  const doodleCode = req.body['doodle-code'];
+
+  await fsPromises.writeFile('temp.html', doodleCode);
+
+  await generateScreenshot(
+    path.join(__dirname, 'temp.html'),
+    doodleTitle,
+    320,
+    480,
+    5,
+  );
+
+  return res.json({
+    doodleTitle,
+    doodleCode,
   });
+});
 
-  if (!fs.existsSync('screenshots')) {
-    fs.mkdirSync('screenshots');
-  }
-
-  await page.screenshot({
-    path: 'screenshots/symmetry2.png',
-  });
-
-  await browser.close();
-})();
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
